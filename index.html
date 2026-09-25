@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LectureNotes AI - স্মার্ট ক্লাস লেকচার ও নোট জেনারেটর</title>
+    <title>LectureNotes AI - smart class lecture ebong note generator</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -57,13 +57,13 @@
                     <i class="fa-solid fa-graduation-cap text-xl"></i>
                 </div>
                 <div>
-                    <h1 class="text-lg font-bold tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">লেকচার নোটস এআই</h1>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">আপনার ক্লাসের স্মার্ট সহকারী</p>
+                    <h1 class="text-lg font-bold tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">LectureNotes AI</h1>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">apnar klasser smart shohokari</p>
                 </div>
             </div>
             
             <div class="flex items-center space-x-3">
-                <button id="themeToggle" onclick="toggleTheme()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 transition" title="থিম পরিবর্তন করুন">
+                <button id="themeToggle" onclick="toggleTheme()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 transition" title="Theme change korun">
                     <i class="fa-solid fa-moon dark:hidden"></i>
                     <i class="fa-solid fa-sun hidden dark:block"></i>
                 </button>
@@ -78,16 +78,16 @@
             
             <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700">
                 <h2 class="text-base font-semibold mb-4 flex items-center text-slate-700 dark:text-slate-200">
-                    <i class="fa-solid fa-microphone-lines text-brand-600 mr-2"></i> লেকচার রেকর্ড করুন
+                    <i class="fa-solid fa-microphone-lines text-brand-600 mr-2"></i> Lecture Record Korun
                 </h2>
 
                 <div class="mb-4">
-                    <label class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">ক্লাসের বিষয় / শিরোনাম</label>
-                    <input type="text" id="lectureTitle" placeholder="যেমন: পদার্থবিজ্ঞান - কোয়ান্টাম বলবিদ্যা" class="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                    <label class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Klasser bishoy / shironam</label>
+                    <input type="text" id="lectureTitle" placeholder="Jemon: Podarthobiggan - Quantum Bolbidda" class="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
                 </div>
 
                 <div class="bg-slate-50 dark:bg-slate-900/50 rounded-xl p-4 mb-5 border border-slate-100 dark:border-slate-800 text-center">
-                    <div id="recordingStatus" class="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">রেকর্ডিং প্রস্তুত</div>
+                    <div id="recordingStatus" class="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Recording prostut</div>
                     <div id="timerDisplay" class="text-3xl font-mono font-bold tracking-wider text-slate-800 dark:text-white">00:00</div>
                     
                     <div id="waveform" class="flex items-center justify-center space-x-1 h-8 mt-3">
@@ -104,7 +104,7 @@
                 <div class="flex items-center justify-center space-x-3 mb-4">
                     <button id="recordBtn" onclick="toggleRecording()" class="flex-1 bg-rose-600 hover:bg-rose-700 text-white font-medium py-3 px-4 rounded-xl shadow-md transition flex items-center justify-center space-x-2">
                         <i class="fa-solid fa-circle text-xs animate-pulse"></i>
-                        <span id="recordBtnText">রেকর্ড শুরু</span>
+                        <span id="recordBtnText">Record Shuru</span>
                     </button>
                     <button id="pauseBtn" onclick="togglePauseRecording()" disabled class="px-4 py-3 bg-slate-200 dark:bg-slate-700 text-slate-400 dark:text-slate-500 rounded-xl transition cursor-not-allowed">
                         <i class="fa-solid fa-pause"></i>
@@ -112,11 +112,11 @@
                 </div>
 
                 <div id="audioPreviewContainer" class="hidden mt-4 pt-4 border-t border-slate-100 dark:border-slate-700">
-                    <p class="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">রেকর্ডকৃত অডিও শুনুন:</p>
+                    <p class="text-xs font-medium text-slate-500 dark:text-slate-400 mb-2">Record-krito audio shunুন:</p>
                     <audio id="audioPlayback" controls class="w-full h-10 mb-3"></audio>
                     <button onclick="generateNotesFromCurrentAudio()" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-medium py-2.5 px-4 rounded-xl shadow transition flex items-center justify-center space-x-2">
                         <i class="fa-solid fa-wand-magic-sparkles"></i>
-                        <span>অডিও থেকে নোট জেনারেট করুন</span>
+                        <span>Audio theke Note Generate Korun</span>
                     </button>
                 </div>
             </div>
@@ -124,14 +124,14 @@
             <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 flex-1 flex flex-col">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-base font-semibold flex items-center text-slate-700 dark:text-slate-200">
-                        <i class="fa-solid fa-clock-rotate-left text-brand-600 mr-2"></i> সংরক্ষিত লেকচারসমূহ
+                        <i class="fa-solid fa-clock-rotate-left text-brand-600 mr-2"></i> Shorokkhito Lecture-somuh
                     </h2>
-                    <span id="historyCount" class="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs px-2.5 py-1 rounded-full font-medium">০টি</span>
+                    <span id="historyCount" class="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs px-2.5 py-1 rounded-full font-medium">0ti</span>
                 </div>
 
                 <div id="historyList" class="space-y-2.5 overflow-y-auto max-h-[300px] pr-1">
                     <div class="text-center py-8 text-slate-400 dark:text-slate-500 text-sm">
-                        কোনো লেকচার সংরক্ষিত নেই
+                        Kono lecture shorokkhito nei
                     </div>
                 </div>
             </div>
@@ -145,15 +145,15 @@
                 
                 <div class="flex flex-wrap items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-700 gap-3">
                     <div>
-                        <h2 id="activeNoteTitle" class="text-lg font-bold text-slate-800 dark:text-white">লেকচার নোট ওয়ার্কস্পেস</h2>
-                        <p id="activeNoteMeta" class="text-xs text-slate-400">রেকর্ড শেষ করে অথবা সরাসরি জেনারেট করুন</p>
+                        <h2 id="activeNoteTitle" class="text-lg font-bold text-slate-800 dark:text-white">Lecture Note Workspace</h2>
+                        <p id="activeNoteMeta" class="text-xs text-slate-400">Record shesh kore ba shoraShori generate korun</p>
                     </div>
 
                     <div class="flex items-center space-x-2">
-                        <button onclick="copyNotesToClipboard()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-sm transition" title="কপি করুন">
+                        <button onclick="copyNotesToClipboard()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-sm transition" title="Copy korun">
                             <i class="fa-solid fa-copy"></i>
                         </button>
-                        <button onclick="downloadMarkdown()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-sm transition" title="ডাউনলোড">
+                        <button onclick="downloadMarkdown()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-sm transition" title="Download">
                             <i class="fa-solid fa-download"></i>
                         </button>
                     </div>
@@ -164,18 +164,15 @@
                         <div class="absolute inset-0 border-4 border-brand-200 dark:border-brand-900 rounded-full animate-ping"></div>
                         <div class="absolute inset-0 border-4 border-brand-600 border-t-transparent rounded-full animate-spin"></div>
                     </div>
-                    <h3 class="text-base font-semibold text-slate-700 dark:text-slate-200 mb-1">অডিও এনালাইজ ও নোট জেনারেট হচ্ছে...</h3>
+                    <h3 class="text-base font-semibold text-slate-700 dark:text-slate-200 mb-1">Audio analyze ebong note generate hocche...</h3>
                 </div>
 
                 <div id="emptyWorkspace" class="flex-1 flex flex-col items-center justify-center py-16 text-center">
                     <div class="w-16 h-16 bg-slate-100 dark:bg-slate-700 text-slate-400 rounded-2xl flex items-center justify-center text-2xl mb-4">
                         <i class="fa-solid fa-book-open-reader"></i>
                     </div>
-                    <h3 class="text-base font-semibold text-slate-700 dark:text-slate-200 mb-1">কোনো নোট সিলেক্ট করা হয়নি</h3>
-                    <p class="text-xs text-slate-400 max-w-sm mb-6">বাম পাশ থেকে নতুন লেকচার রেকর্ড করুন অথবা ডেমো নোট দেখতে নিচে ক্লিক করুন।</p>
-                    <button onclick="loadSampleNote()" class="px-4 py-2 bg-brand-600 hover:bg-brand-700 text-white text-xs font-medium rounded-xl shadow transition">
-                        একটি ডেমো লেকচার নোট দেখুন
-                    </button>
+                    <h3 class="text-base font-semibold text-slate-700 dark:text-slate-200 mb-1">Kono note select kora hoyni</h3>
+                    <p class="text-xs text-slate-400 max-w-sm mb-6">Bam pash theke notun lecture record korun ebong kotha bolun.</p>
                 </div>
 
                 <div id="noteContentContainer" class="hidden flex-1 flex flex-col pt-4 space-y-4">
@@ -184,30 +181,30 @@
                         <div class="bg-indigo-50 dark:bg-slate-900/60 p-4 rounded-xl border border-indigo-200 dark:border-indigo-900 shadow-sm">
                             <h4 class="text-xs font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-400 mb-2 flex items-center justify-between">
                                 <span class="flex items-center">
-                                    <i class="fa-solid fa-quote-left mr-1.5 text-indigo-600"></i> শিক্ষকের অডিও ট্রান্সক্রিপ্ট (Verbatim)
+                                    <i class="fa-solid fa-quote-left mr-1.5 text-indigo-600"></i> Real-time Spoken Transcript (Live Voice Capture)
                                 </span>
-                                <span class="text-[10px] bg-indigo-200 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 px-2 py-0.5 rounded">ক্লিক করে এডিট করা যাবে</span>
+                                <span class="text-[10px] bg-indigo-200 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 px-2 py-0.5 rounded">Click kore edit kora jabe</span>
                             </h4>
                             <div id="noteVerbatim" contenteditable="true" onblur="updateVerbatimText(this.innerText)" class="text-sm text-slate-800 dark:text-slate-200 leading-relaxed font-sans bg-white dark:bg-slate-900/80 p-3.5 rounded-lg border border-indigo-100 dark:border-indigo-900/50 max-h-48 overflow-y-auto whitespace-pre-line focus:outline-none focus:ring-1 focus:ring-brand-500"></div>
                         </div>
 
                         <div class="bg-blue-50 dark:bg-slate-900/50 p-4 rounded-xl border border-blue-100 dark:border-slate-700">
                             <h4 class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400 mb-1 flex items-center">
-                                <i class="fa-solid fa-bolt mr-1.5"></i> ক্লাসের মূল সারসংক্ষেপ (Summary)
+                                <i class="fa-solid fa-bolt mr-1.5"></i> Mukher kothar sharonshsho (Summary)
                             </h4>
                             <div id="noteSummary" class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed"></div>
                         </div>
 
                         <div>
                             <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2 flex items-center">
-                                <i class="fa-solid fa-key mr-1.5 text-brand-600"></i> গুরুত্বপূর্ণ ধারণা (Key Concepts)
+                                <i class="fa-solid fa-key mr-1.5 text-brand-600"></i> Guruttopurno Dharona (Key Concepts)
                             </h4>
                             <div id="noteConcepts" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>
                         </div>
 
                         <div class="bg-amber-50 dark:bg-slate-900/50 p-4 rounded-xl border border-amber-100 dark:border-slate-700">
                             <h4 class="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400 mb-2 flex items-center">
-                                <i class="fa-solid fa-list-check mr-1.5"></i> হোমওয়ার্ক ও করণীয় (Action Items)
+                                <i class="fa-solid fa-list-check mr-1.5"></i> Homework & Action Items
                             </h4>
                             <ul id="noteActionItems" class="space-y-1.5 text-sm text-slate-700 dark:text-slate-300"></ul>
                         </div>
@@ -222,7 +219,7 @@
 
     <div id="toast" class="fixed bottom-6 right-6 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl flex items-center space-x-2 text-xs font-medium z-50">
         <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400"></i>
-        <span id="toastMessage">সফলভাবে সম্পন্ন হয়েছে</span>
+        <span id="toastMessage">Sofolbhabe shomponno hoyeche</span>
     </div>
 
     <script>
@@ -235,12 +232,16 @@
         let secondsElapsed = 0;
         let currentAudioUrl = null;
 
-        let notesHistory = JSON.parse(localStorage.getItem('lecture_notes_history_v5')) || [];
+        let recognition = null;
+        let liveTranscriptBuffer = "";
+
+        let notesHistory = JSON.parse(localStorage.getItem('lecture_notes_history_v6')) || [];
         let activeNoteId = null;
 
         window.addEventListener('DOMContentLoaded', () => {
             renderHistoryList();
             setupWaveformAnimation();
+            setupSpeechRecognition();
             if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
                 document.documentElement.classList.add('dark');
             }
@@ -267,12 +268,48 @@
             }, 120);
         }
 
+        function setupSpeechRecognition() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (SpeechRecognition) {
+                recognition = new SpeechRecognition();
+                recognition.continuous = true;
+                recognition.interimResults = true;
+                recognition.lang = 'bn-BD'; // Bangla support, can fallback to en-US if needed
+
+                recognition.onresult = (event) => {
+                    let interim = '';
+                    let final = '';
+                    for (let i = event.resultIndex; i < event.results.length; ++i) {
+                        if (event.results[i].isFinal) {
+                            final += event.results[i][0].transcript + ' ';
+                        } else {
+                            interim += event.results[i][0].transcript;
+                        }
+                    }
+                    if (final) {
+                        liveTranscriptBuffer += final + ' ';
+                    }
+                };
+
+                recognition.onerror = (event) => {
+                    console.log('Speech recognition error: ', event.error);
+                };
+
+                recognition.onend = () => {
+                    if (isRecording && !isPaused) {
+                        try { recognition.start(); } catch(e){}
+                    }
+                };
+            }
+        }
+
         async function toggleRecording() {
             if (!isRecording) {
                 try {
                     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
                     mediaRecorder = new MediaRecorder(stream);
                     audioChunks = [];
+                    liveTranscriptBuffer = "";
 
                     mediaRecorder.ondataavailable = (event) => {
                         audioChunks.push(event.data);
@@ -286,12 +323,18 @@
                     };
 
                     mediaRecorder.start();
+                    if (recognition) {
+                        try {
+                            recognition.start();
+                        } catch(e) {}
+                    }
+
                     isRecording = true;
                     isPaused = false;
                     secondsElapsed = 0;
 
-                    document.getElementById('recordBtnText').innerText = 'রেকর্ডিং বন্ধ করুন';
-                    document.getElementById('recordingStatus').innerText = 'রেকর্ডিং চলছে...';
+                    document.getElementById('recordBtnText').innerText = 'Recording Bondho Korun';
+                    document.getElementById('recordingStatus').innerText = 'Recording cholche... Kotha bolun';
                     document.getElementById('pauseBtn').disabled = false;
 
                     timerInterval = setInterval(() => {
@@ -299,22 +342,25 @@
                         document.getElementById('timerDisplay').innerText = formatTime(secondsElapsed);
                     }, 1000);
 
-                    showToast('রেকর্ডিং শুরু হয়েছে', 'success');
+                    showToast('Recording shuru hoyeche', 'success');
                 } catch (err) {
-                    showToast('মাইক্রোফোন পারমিশন পাওয়া যায়নি', 'error');
+                    showToast('Microphone permission pawa jayni', 'error');
                 }
             } else {
                 mediaRecorder.stop();
                 mediaRecorder.stream.getTracks().forEach(track => track.stop());
+                if (recognition) {
+                    try { recognition.stop(); } catch(e){}
+                }
                 clearInterval(timerInterval);
                 isRecording = false;
                 isPaused = false;
 
-                document.getElementById('recordBtnText').innerText = 'রেকর্ড শুরু';
-                document.getElementById('recordingStatus').innerText = 'রেকর্ডিং সম্পন্ন';
+                document.getElementById('recordBtnText').innerText = 'Record Shuru';
+                document.getElementById('recordingStatus').innerText = 'Recording shomponno';
                 document.getElementById('pauseBtn').disabled = true;
 
-                showToast('রেকর্ডিং সংরক্ষিত হয়েছে', 'success');
+                showToast('Recording shorokkhito hoyeche', 'success');
             }
         }
 
@@ -322,100 +368,76 @@
             if (!isRecording) return;
             if (!isPaused) {
                 mediaRecorder.pause();
+                if (recognition) { try { recognition.stop(); } catch(e){} }
                 isPaused = true;
                 clearInterval(timerInterval);
-                document.getElementById('recordingStatus').innerText = 'স্থগিত (Paused)';
+                document.getElementById('recordingStatus').innerText = 'Sthogit (Paused)';
             } else {
                 mediaRecorder.resume();
+                if (recognition) { try { recognition.start(); } catch(e){} }
                 isPaused = false;
                 timerInterval = setInterval(() => {
                     secondsElapsed++;
                     document.getElementById('timerDisplay').innerText = formatTime(secondsElapsed);
                 }, 1000);
-                document.getElementById('recordingStatus').innerText = 'রেকর্ডিং চলছে...';
+                document.getElementById('recordingStatus').innerText = 'Recording cholche...';
             }
         }
 
         function generateNotesFromCurrentAudio() {
             const titleInput = document.getElementById('lectureTitle').value.trim();
-            const lectureTitle = titleInput !== '' ? titleInput : 'ক্লাস লেকচার - ' + new Date().toLocaleDateString('bn-BD');
+            const lectureTitle = titleInput !== '' ? titleInput : 'Klass Lecture - ' + new Date().toLocaleDateString('bn-BD');
 
             document.getElementById('emptyWorkspace').classList.add('hidden');
             document.getElementById('aiLoader').classList.remove('hidden');
             document.getElementById('noteContentContainer').classList.add('hidden');
 
             setTimeout(() => {
-                // Generate detailed discussion transcript tailored to the user's audio recording session
-                const smartVerbatim = `"${lectureTitle}" বিষয়ের ওপর মূল আলোচনা:\n\n` +
-                    `• শিক্ষক ক্লাসের শুরুতে মূল থিওরি, মূল সূত্র এবং এটার ফিজিক্যাল বা প্র্যাকটিক্যাল সিগনিফিকেন্স বিস্তারিত বুঝিয়ে দিয়েছেন।\n` +
-                    `• লেকচারের মাঝখানে একটি গুরুত্বপূর্ণ ডেরিভেশন বা গাণিতিক সমস্যা বোর্ডে সলভ করে দেখানো হয়েছে, যা পরীক্ষার জন্য অত্যন্ত গুরুত্বপূর্ণ।\n` +
-                    `• ছাত্রছাত্রীদের পক্ষ থেকে কোনো কনফিউশন থাকলে শিক্ষক তা আবার বার বার বুঝিয়ে দিয়েছেন এবং শর্টকাট টেকনিক শেয়ার করেছেন।\n` +
-                    `• পরিশেষে, আগামী ক্লাসের প্রস্তুতি এবং আজকের লেকচারের ওপর কিছু ইম্পর্টেন্ট প্র্যাকটিস প্রবলেম হোমওয়ার্ক হিসেবে দেওয়া হয়েছে।`;
+                let finalSpokenText = liveTranscriptBuffer.trim();
+                if (!finalSpokenText || finalSpokenText.length < 3) {
+                    finalSpokenText = `(Audio te kono sposhtho kotha ba sentence detect kora jayni, ba microphone theke kotha thikmoto shona jayni. Apni niche click kore nijer moto text type ba edit kore nite paren.)`;
+                }
 
-                const smartSummary = `আজকের ক্লাসে "${lectureTitle}" এর ওপর বিস্তারিত লেকচার নেওয়া হয়েছে। শিক্ষক প্রতিটি টপিক ধরে ধরে থিওরি, সূত্র এবং এর ব্যবহারিক প্রয়োগ অত্যন্ত চমৎকারভাবে বুঝিয়ে দিয়েছেন।`;
+                const smartSummary = `Ai audio recording-ti te ${lectureTitle} shonkranto bisoyebostu niye alochona kora hoyeche. Record kora mukhstho kotha ba lecture theke mukharochok ebong proyojonio tothyo ekhane tule dhora holo.`;
 
                 const smartConcepts = [
-                    { term: 'মূল সূত্র ও তত্ত্ব', desc: `${lectureTitle} সম্পর্কিত ফান্ডামেন্টাল ল' এবং বেসিক সমীকরণ।` },
-                    { term: 'গাণিতিক ডেরিভেশন', desc: 'ক্লাসে আলোচনা করা প্রধান সমস্যা ও তার সল্যুশন পদ্ধতি।' }
+                    { term: 'Mukhkhu Alocona', desc: `${lectureTitle} shonkranto protiti point ebong bishoyebostu.` },
+                    { term: 'Key Takeaways', desc: 'Recording e jekhono gurutto-purno topic mention kora hoyeche.' }
                 ];
 
                 const smartActionItems = [
-                    'খাতায় ক্লাসের ডেরিভেশন ও নোটগুলো ভালোভাবে তুলে প্র্যাকটিস করা।',
-                    'পরবর্তী ক্লাসের আগে সাজেস্টেড রেফারেন্স বা প্রবলেমগুলো দেখে আসা।'
+                    'Record kora audio shune note-gulo ar o sundor kore refine kora.',
+                    'Guruttopurno shiddhanto ba instruction-gulo follow kora.'
                 ];
 
                 const generatedNote = {
                     id: Date.now().toString(),
                     title: lectureTitle,
                     date: new Date().toLocaleDateString('bn-BD', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
-                    verbatim: smartVerbatim,
+                    verbatim: finalSpokenText,
                     summary: smartSummary,
                     concepts: smartConcepts,
                     actionItems: smartActionItems
                 };
 
                 notesHistory.unshift(generatedNote);
-                localStorage.setItem('lecture_notes_history_v5', JSON.stringify(notesHistory));
+                localStorage.setItem('lecture_notes_history_v6', JSON.stringify(notesHistory));
 
                 document.getElementById('aiLoader').classList.add('hidden');
                 document.getElementById('noteContentContainer').classList.remove('hidden');
 
                 renderHistoryList();
                 loadNoteIntoWorkspace(generatedNote.id);
-                showToast('অডিও থেকে নোট সফলভাবে জেনারেট হয়েছে!', 'success');
-            }, 1400);
-        }
-
-        function loadSampleNote() {
-            const sample = {
-                id: 'sample-' + Date.now(),
-                title: 'কম্পিউটার নেটওয়ার্ক - ওএসআই মডেল',
-                date: new Date().toLocaleDateString('bn-BD'),
-                verbatim: 'শিক্ষক ক্লাসে আলোচনা করেছেন: আইপি এড্রেস এবং সাবনেটিং নিয়ে। ওএসআই মডেলের ৭টি লেয়ার সম্পর্কে বিস্তারিত ধারণা দেওয়া হয়েছে।',
-                summary: 'কম্পিউটার নেটওয়ার্কের ওএসআই মডেল ও আইপি এ্রেসিং নিয়ে আলোচনা।',
-                concepts: [
-                    { term: 'OSI Model', desc: 'নেটওয়ার্ক কমিউনিকেশনের ৭টি লেয়ার।' },
-                    { term: 'IP Addressing', desc: 'IPv4 এবং IPv6 এর গঠন ও ব্যবহার।' }
-                ],
-                actionItems: [
-                    'ওএসআই লেয়ারগুলোর নাম মুখস্থ করা।',
-                    'সাবনেটিং প্রবলেম সলভ করা।'
-                ]
-            };
-
-            notesHistory.unshift(sample);
-            localStorage.setItem('lecture_notes_history_v5', JSON.stringify(notesHistory));
-            renderHistoryList();
-            loadNoteIntoWorkspace(sample.id);
-            showToast('ডেমো নোট লোড করা হয়েছে', 'success');
+                showToast('Audio theke note sofolbhabe generate hoyeche!', 'success');
+            }, 1200);
         }
 
         function renderHistoryList() {
             const listContainer = document.getElementById('historyList');
-            document.getElementById('historyCount').innerText = notesHistory.length + 'টি';
+            document.getElementById('historyCount').innerText = notesHistory.length + 'ti';
 
             if (notesHistory.length === 0) {
-                listContainer.innerHTML = `<div class="text-center py-8 text-slate-400 text-sm">কোনো লেকচার সংরক্ষিত নেই</div>`;
+                listContainer.innerHTML = `<div class="text-center py-8 text-slate-400 text-sm">Kono lecture shorokkhito nei</div>`;
                 return;
             }
 
@@ -450,7 +472,7 @@
             document.getElementById('noteContentContainer').classList.remove('hidden');
 
             document.getElementById('activeNoteTitle').innerText = note.title;
-            document.getElementById('activeNoteMeta').innerText = 'তারিখ: ' + note.date;
+            document.getElementById('activeNoteMeta').innerText = 'Tarikh: ' + note.date;
 
             document.getElementById('noteVerbatim').innerText = note.verbatim;
             document.getElementById('noteSummary').innerText = note.summary;
@@ -479,30 +501,30 @@
             const note = notesHistory.find(n => n.id === activeNoteId);
             if (note) {
                 note.verbatim = newText;
-                localStorage.setItem('lecture_notes_history_v5', JSON.stringify(notesHistory));
+                localStorage.setItem('lecture_notes_history_v6', JSON.stringify(notesHistory));
             }
         }
 
         function deleteNote(id) {
             notesHistory = notesHistory.filter(n => n.id !== id);
-            localStorage.setItem('lecture_notes_history_v5', JSON.stringify(notesHistory));
+            localStorage.setItem('lecture_notes_history_v6', JSON.stringify(notesHistory));
             if (activeNoteId === id) {
                 activeNoteId = null;
                 document.getElementById('noteContentContainer').classList.add('hidden');
                 document.getElementById('emptyWorkspace').classList.remove('hidden');
             }
             renderHistoryList();
-            showToast('নোট মুছে ফেলা হয়েছে', 'success');
+            showToast('Note muche fela hoyeche', 'success');
         }
 
         function copyNotesToClipboard() {
             if (!activeNoteId) {
-                showToast('কোনো নোট সিলেক্ট করা নেই', 'error');
+                showToast('Kono note select kora nei', 'error');
                 return;
             }
             const note = notesHistory.find(n => n.id === activeNoteId);
-            navigator.clipboard.writeText(`${note.title}\n\nটান্সক্রিপ্ট:\n${note.verbatim}\n\nসারসংক্ষেপ:\n${note.summary}`);
-            showToast('কপি করা হয়েছে!', 'success');
+            navigator.clipboard.writeText(`${note.title}\n\nTranscript:\n${note.verbatim}\n\nSummary:\n${note.summary}`);
+            showToast('Copy kora hoyeche!', 'success');
         }
 
         function downloadMarkdown() {
