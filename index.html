@@ -388,7 +388,9 @@
                 const systemPrompt = `You are an expert audio transcription assistant. Listen to or transcribe the provided audio file accurately into text. Output only the transcript in the requested language (${selectedLang}). If the audio contains Bengali, write in Bengali.`;
                 const userQuery = `Please transcribe this audio file accurately into text.`;
                 const apiKey = "";
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+
+                const mimeType = file.type || "audio/mp3";
 
                 const payload = {
                     contents: [
@@ -398,7 +400,7 @@
                                 { text: userQuery },
                                 {
                                     inlineData: {
-                                        mimeType: file.type || "audio/mp3",
+                                        mimeType: mimeType.includes('audio/') ? mimeType : "audio/mp3",
                                         data: base64Data
                                     }
                                 }
@@ -432,7 +434,8 @@
                 }
 
                 if (!response || !response.ok) {
-                    throw new Error('Failed to transcribe audio from API.');
+                    const errData = response ? await response.json().catch(() => ({})) : {};
+                    throw new Error(errData.error?.message || 'Failed to transcribe audio from API.');
                 }
 
                 const result = await response.json();
@@ -449,10 +452,11 @@
 
             } catch (error) {
                 console.error(error);
-                showNotification('Error processing audio file. Please try again.', 'error');
+                showNotification(`Audio processing error: ${error.message || 'Please check file format.'}`, 'error');
             } finally {
                 statusIndicator.className = 'w-3 h-3 rounded-full bg-slate-300 dark:bg-slate-700 inline-block';
                 statusText.textContent = 'Ready to listen';
+                audioFileInput.value = ''; // Reset file input
             }
         });
 
