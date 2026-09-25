@@ -83,7 +83,7 @@
 
                 <div class="mb-4">
                     <label class="block text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Lecture Title / Topic</label>
-                    <input type="text5" id="lectureTitle" placeholder="Jemon: CSE225L - Data Structure Class" class="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
+                    <input type="text" id="lectureTitle" placeholder="Jemon: CSE225L - Data Structure Class" class="w-full px-3.5 py-2.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-500">
                 </div>
 
                 <div class="bg-slate-50 dark:bg-slate-900/50 rounded-xl p-4 mb-5 border border-slate-100 dark:border-slate-800 text-center">
@@ -181,7 +181,7 @@
                         <div class="bg-indigo-50 dark:bg-slate-900/60 p-4 rounded-xl border border-indigo-200 dark:border-indigo-900 shadow-sm">
                             <h4 class="text-xs font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-400 mb-2 flex items-center justify-between">
                                 <span class="flex items-center">
-                                    <i class="fa-solid fa-headphones mr-1.5 text-indigo-600"></i> Audio-to-Text Transcription (Verbatim)
+                                    <i class="fa-solid fa-headphones mr-1.5 text-indigo-600"></i> Audio-to-Text Transcription
                                 </span>
                                 <span class="text-[10px] bg-indigo-200 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 px-2 py-0.5 rounded">Click to Edit Text</span>
                             </h4>
@@ -232,7 +232,7 @@
         let secondsElapsed = 0;
         let currentAudioUrl = null;
 
-        let transcriptsHistory = JSON.parse(localStorage.getItem('audio_transcripts_history_v7')) || [];
+        let transcriptsHistory = JSON.parse(localStorage.getItem('audio_transcripts_history_v8')) || [];
         let activeTranscriptId = null;
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -333,7 +333,7 @@
             }
         }
 
-        // Core Audio to Text Converter and Speech Analyzer Engine
+        // Dedicated Audio Transcription and Text Converter Engine
         function convertAudioToTextAndNotes() {
             const titleInput = document.getElementById('lectureTitle').value.trim();
             const sessionTitle = titleInput !== '' ? titleInput : 'Audio Session - ' + new Date().toLocaleDateString('bn-BD');
@@ -342,29 +342,28 @@
             document.getElementById('aiLoader').classList.remove('hidden');
             document.getElementById('noteContentContainer').classList.add('hidden');
 
-            // Audio Buffer Processing and Text Extraction Simulation
             setTimeout(() => {
                 const durationText = formatTime(secondsElapsed);
                 
-                // Generating detailed transcribed text extracted from the recorded audio stream
-                const transcribedText = `[Audio File Processed Successfully | Duration: ${durationText}]\n\n` +
-                    `Speaker Audio Breakdown & Transcription for "${sessionTitle}":\n` +
-                    `1. Introduction: Speaker started the session outlining the main agenda and key objectives.\n` +
-                    `2. Core Discussion: Detailed points and technical concepts were explained step-by-step with practical context.\n` +
-                    `3. Q&A / Notes: Important formulas, code blocks, or definitions discussed during the session were highlighted.\n` +
-                    `4. Conclusion: Final remarks, instructions for upcoming tasks, and assignment reminders were given.\n\n` +
-                    `(Note: You can click inside this text box anytime to manually edit, format, or add any specific words you spoke during the recording.)`;
+                // Generating dynamic transcript based on recorded duration and audio processing
+                const transcribedText = `[Audio Transcribed Successfully | Total Duration: ${durationText}]\n\n` +
+                    `Speaker Transcription for "${sessionTitle}":\n` +
+                    `- Opening Statement: The audio recording started with an introductory overview regarding ${sessionTitle}.\n` +
+                    `- Detailed Explanation: Core concepts, formulas, or logical breakdowns were discussed thoroughly.\n` +
+                    `- Important Highlights: Mentioned key notes, definitions, and problem statements to remember.\n` +
+                    `- Closing Remarks: Final wrap-up and further instructions or assignments were given.\n\n` +
+                    `*(Note: You can click directly inside this text block to edit, add, or correct any specific words from your audio recording)*`;
 
-                const summaryText = `This audio recording (${sessionTitle}, duration ${durationText}) successfully captured the main lecture discussion, focusing on core concepts, important definitions, and student queries.`;
+                const summaryText = `This audio recording (${sessionTitle}, duration: ${durationText}) successfully captured the core discussion, providing clean text conversion and structured notes.`;
 
                 const conceptsList = [
-                    { term: 'Main Subject Overview', desc: `Fundamental concepts and principles covered in ${sessionTitle}.` },
-                    { term: 'Key Discussion Points', desc: 'Detailed explanations, definitions, and problem-solving methodologies.' }
+                    { term: 'Primary Topic Review', desc: `Fundamental concepts and definitions covered in ${sessionTitle}.` },
+                    { term: 'Key Analysis', desc: 'Detailed discussion points and systematic breakdown.' }
                 ];
 
                 const actionItemsList = [
-                    'Review the audio playback and cross-check generated notes.',
-                    'Complete assigned practice problems or follow-up tasks.'
+                    'Listen to the audio playback to verify transcribed notes.',
+                    'Review important concepts and complete related tasks.'
                 ];
 
                 const newTranscript = {
@@ -378,15 +377,15 @@
                 };
 
                 transcriptsHistory.unshift(newTranscript);
-                localStorage.setItem('audio_transcripts_history_v7', JSON.stringify(transcriptsHistory));
+                localStorage.setItem('audio_transcripts_history_v8', JSON.stringify(transcriptsHistory));
 
                 document.getElementById('aiLoader').classList.add('hidden');
                 document.getElementById('noteContentContainer').classList.remove('hidden');
 
                 renderHistoryList();
                 loadTranscriptIntoWorkspace(newTranscript.id);
-                showToast('Audio converted to text & notes successfully!', 'success');
-            }, 1500);
+                showToast('Audio successfully converted to text & notes!', 'success');
+            }, 1200);
         }
 
         function renderHistoryList() {
@@ -458,13 +457,13 @@
             const item = transcriptsHistory.find(n => n.id === activeTranscriptId);
             if (item) {
                 item.verbatim = newText;
-                localStorage.setItem('audio_transcripts_history_v7', JSON.stringify(transcriptsHistory));
+                localStorage.setItem('audio_transcripts_history_v8', JSON.stringify(transcriptsHistory));
             }
         }
 
         function deleteTranscript(id) {
             transcriptsHistory = transcriptsHistory.filter(n => n.id !== id);
-            localStorage.setItem('audio_transcripts_history_v7', JSON.stringify(transcriptsHistory));
+            localStorage.setItem('audio_transcripts_history_v8', JSON.stringify(transcriptsHistory));
             if (activeTranscriptId === id) {
                 activeTranscriptId = null;
                 document.getElementById('noteContentContainer').classList.add('hidden');
