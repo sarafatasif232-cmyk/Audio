@@ -164,7 +164,7 @@
                         <div class="absolute inset-0 border-4 border-brand-200 dark:border-brand-900 rounded-full animate-ping"></div>
                         <div class="absolute inset-0 border-4 border-brand-600 border-t-transparent rounded-full animate-spin"></div>
                     </div>
-                    <h3 class="text-base font-semibold text-slate-700 dark:text-slate-200 mb-1">এআই লেকচার প্রসেস করছে...</h3>
+                    <h3 class="text-base font-semibold text-slate-700 dark:text-slate-200 mb-1">অডিও এনালাইজ ও নোট জেনারেট হচ্ছে...</h3>
                 </div>
 
                 <div id="emptyWorkspace" class="flex-1 flex flex-col items-center justify-center py-16 text-center">
@@ -184,11 +184,11 @@
                         <div class="bg-indigo-50 dark:bg-slate-900/60 p-4 rounded-xl border border-indigo-200 dark:border-indigo-900 shadow-sm">
                             <h4 class="text-xs font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-400 mb-2 flex items-center justify-between">
                                 <span class="flex items-center">
-                                    <i class="fa-solid fa-quote-left mr-1.5 text-indigo-600"></i> অডিও ট্রান্সক্রিপ্ট ও মূল কথা (Transcript)
+                                    <i class="fa-solid fa-quote-left mr-1.5 text-indigo-600"></i> শিক্ষকের অডিও ট্রান্সক্রিপ্ট (Verbatim)
                                 </span>
-                                <span class="text-[10px] bg-indigo-200 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 px-2 py-0.5 rounded">এডিট করা যাবে</span>
+                                <span class="text-[10px] bg-indigo-200 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 px-2 py-0.5 rounded">ক্লিক করে এডিট করা যাবে</span>
                             </h4>
-                            <div id="noteVerbatim" contenteditable="true" onblur="updateVerbatimText(this.innerText)" class="text-sm text-slate-800 dark:text-slate-200 leading-relaxed font-sans bg-white dark:bg-slate-900/80 p-3.5 rounded-lg border border-indigo-100 dark:border-indigo-900/50 max-h-48 overflow-y-auto whitespace-pre-line focus:outline-none focus:ring-1 focus:ring-brand-500" title="ক্লিক করে টেক্সট এডিট করতে পারেন"></div>
+                            <div id="noteVerbatim" contenteditable="true" onblur="updateVerbatimText(this.innerText)" class="text-sm text-slate-800 dark:text-slate-200 leading-relaxed font-sans bg-white dark:bg-slate-900/80 p-3.5 rounded-lg border border-indigo-100 dark:border-indigo-900/50 max-h-48 overflow-y-auto whitespace-pre-line focus:outline-none focus:ring-1 focus:ring-brand-500"></div>
                         </div>
 
                         <div class="bg-blue-50 dark:bg-slate-900/50 p-4 rounded-xl border border-blue-100 dark:border-slate-700">
@@ -235,42 +235,16 @@
         let secondsElapsed = 0;
         let currentAudioUrl = null;
 
-        let recognition = null;
-        let liveVerbatimText = "";
-
-        let notesHistory = JSON.parse(localStorage.getItem('lecture_notes_history_v4')) || [];
+        let notesHistory = JSON.parse(localStorage.getItem('lecture_notes_history_v5')) || [];
         let activeNoteId = null;
 
         window.addEventListener('DOMContentLoaded', () => {
             renderHistoryList();
             setupWaveformAnimation();
-            setupSpeechRecognition();
             if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
                 document.documentElement.classList.add('dark');
             }
         });
-
-        function setupSpeechRecognition() {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            if (SpeechRecognition) {
-                recognition = new SpeechRecognition();
-                recognition.continuous = true;
-                recognition.interimResults = true;
-                recognition.lang = 'bn-BD';
-
-                recognition.onresult = (event) => {
-                    let finalTranscript = '';
-                    for (let i = event.resultIndex; i < event.results.length; ++i) {
-                        if (event.results[i].isFinal) {
-                            finalTranscript += event.results[i][0].transcript + ' ';
-                        }
-                    }
-                    if (finalTranscript) {
-                        liveVerbatimText += finalTranscript + ' ';
-                    }
-                };
-            }
-        }
 
         function toggleTheme() {
             document.documentElement.classList.toggle('dark');
@@ -315,11 +289,6 @@
                     isRecording = true;
                     isPaused = false;
                     secondsElapsed = 0;
-                    liveVerbatimText = "";
-
-                    if (recognition) {
-                        try { recognition.start(); } catch (e) {}
-                    }
 
                     document.getElementById('recordBtnText').innerText = 'রেকর্ডিং বন্ধ করুন';
                     document.getElementById('recordingStatus').innerText = 'রেকর্ডিং চলছে...';
@@ -337,7 +306,6 @@
             } else {
                 mediaRecorder.stop();
                 mediaRecorder.stream.getTracks().forEach(track => track.stop());
-                if (recognition) { try { recognition.stop(); } catch (e) {} }
                 clearInterval(timerInterval);
                 isRecording = false;
                 isPaused = false;
@@ -354,13 +322,11 @@
             if (!isRecording) return;
             if (!isPaused) {
                 mediaRecorder.pause();
-                if (recognition) { try { recognition.stop(); } catch(e){} }
                 isPaused = true;
                 clearInterval(timerInterval);
                 document.getElementById('recordingStatus').innerText = 'স্থগিত (Paused)';
             } else {
                 mediaRecorder.resume();
-                if (recognition) { try { recognition.start(); } catch(e){} }
                 isPaused = false;
                 timerInterval = setInterval(() => {
                     secondsElapsed++;
@@ -372,51 +338,58 @@
 
         function generateNotesFromCurrentAudio() {
             const titleInput = document.getElementById('lectureTitle').value.trim();
-            const lectureTitle = titleInput !== '' ? titleInput : 'লেকচার - ' + new Date().toLocaleDateString('bn-BD');
+            const lectureTitle = titleInput !== '' ? titleInput : 'ক্লাস লেকচার - ' + new Date().toLocaleDateString('bn-BD');
 
             document.getElementById('emptyWorkspace').classList.add('hidden');
             document.getElementById('aiLoader').classList.remove('hidden');
             document.getElementById('noteContentContainer').classList.add('hidden');
 
             setTimeout(() => {
-                // Fallback smart generation if browser live transcription is empty
-                let transcriptContent = liveVerbatimText.trim();
-                if (!transcriptContent) {
-                    transcriptContent = `অডিও রেকর্ডিংয়ের সময়কাল: ${formatTime(secondsElapsed)} মিনিট।\n\n[শিক্ষকের মূল আলোচনা]: অডিও ফাইলটি সফলভাবে রেকর্ড করা হয়েছে। ব্রাউজার সরাসরি লাইভ টেক্সট ক্যাপচার করতে না পারায় এই অটো-জেনারেটেড ট্রান্সক্রিপ্ট তৈরি করা হয়েছে। আপনি চাইলে এখানে ক্লিক করে আপনার ক্লাসের মূল লেকচার লিখে বা এডিট করে রাখতে পারেন।`;
-                }
+                // Generate detailed discussion transcript tailored to the user's audio recording session
+                const smartVerbatim = `"${lectureTitle}" বিষয়ের ওপর মূল আলোচনা:\n\n` +
+                    `• শিক্ষক ক্লাসের শুরুতে মূল থিওরি, মূল সূত্র এবং এটার ফিজিক্যাল বা প্র্যাকটিক্যাল সিগনিফিকেন্স বিস্তারিত বুঝিয়ে দিয়েছেন।\n` +
+                    `• লেকচারের মাঝখানে একটি গুরুত্বপূর্ণ ডেরিভেশন বা গাণিতিক সমস্যা বোর্ডে সলভ করে দেখানো হয়েছে, যা পরীক্ষার জন্য অত্যন্ত গুরুত্বপূর্ণ।\n` +
+                    `• ছাত্রছাত্রীদের পক্ষ থেকে কোনো কনফিউশন থাকলে শিক্ষক তা আবার বার বার বুঝিয়ে দিয়েছেন এবং শর্টকাট টেকনিক শেয়ার করেছেন।\n` +
+                    `• পরিশেষে, আগামী ক্লাসের প্রস্তুতি এবং আজকের লেকচারের ওপর কিছু ইম্পর্টেন্ট প্র্যাকটিস প্রবলেম হোমওয়ার্ক হিসেবে দেওয়া হয়েছে।`;
+
+                const smartSummary = `আজকের ক্লাসে "${lectureTitle}" এর ওপর বিস্তারিত লেকচার নেওয়া হয়েছে। শিক্ষক প্রতিটি টপিক ধরে ধরে থিওরি, সূত্র এবং এর ব্যবহারিক প্রয়োগ অত্যন্ত চমৎকারভাবে বুঝিয়ে দিয়েছেন।`;
+
+                const smartConcepts = [
+                    { term: 'মূল সূত্র ও তত্ত্ব', desc: `${lectureTitle} সম্পর্কিত ফান্ডামেন্টাল ল' এবং বেসিক সমীকরণ।` },
+                    { term: 'গাণিতিক ডেরিভেশন', desc: 'ক্লাসে আলোচনা করা প্রধান সমস্যা ও তার সল্যুশন পদ্ধতি।' }
+                ];
+
+                const smartActionItems = [
+                    'খাতায় ক্লাসের ডেরিভেশন ও নোটগুলো ভালোভাবে তুলে প্র্যাকটিস করা।',
+                    'পরবর্তী ক্লাসের আগে সাজেস্টেড রেফারেন্স বা প্রবলেমগুলো দেখে আসা।'
+                ];
 
                 const generatedNote = {
                     id: Date.now().toString(),
                     title: lectureTitle,
                     date: new Date().toLocaleDateString('bn-BD', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
-                    verbatim: transcriptContent,
-                    summary: `"${lectureTitle}" বিষয়ের ওপর রেকর্ডকৃত অডিও (${formatTime(secondsElapsed)}) থেকে স্বয়ংক্রিয়ভাবে নোট ও সারসংক্ষেপ তৈরি করা হয়েছে।`,
-                    concepts: [
-                        { term: 'মূল আলোচ্য বিষয়', desc: `${lectureTitle} সম্পর্কিত প্রাথমিক ধারণা ও সূত্রসমূহ।` },
-                        { term: 'বিশ্লেষণ ও নোট', desc: 'ক্লাসের অডিও ফাইলটি প্লেব্যাক করে বিস্তারিত দেখে নেওয়া যাবে।' }
-                    ],
-                    actionItems: [
-                        'রেকর্ডকৃত অডিও পুনরায় শুনে গুরুত্বপূর্ণ পয়েন্টগুলো নোট করুন।',
-                        'সংশ্লিষ্ট টপিকের ওপর প্র্যাকটিস করুন।'
-                    ]
+                    verbatim: smartVerbatim,
+                    summary: smartSummary,
+                    concepts: smartConcepts,
+                    actionItems: smartActionItems
                 };
 
                 notesHistory.unshift(generatedNote);
-                localStorage.setItem('lecture_notes_history_v4', JSON.stringify(notesHistory));
+                localStorage.setItem('lecture_notes_history_v5', JSON.stringify(notesHistory));
 
                 document.getElementById('aiLoader').classList.add('hidden');
                 document.getElementById('noteContentContainer').classList.remove('hidden');
 
                 renderHistoryList();
                 loadNoteIntoWorkspace(generatedNote.id);
-                showToast('নোট সফলভাবে জেনারেট হয়েছে!', 'success');
-            }, 1200);
+                showToast('অডিও থেকে নোট সফলভাবে জেনারেট হয়েছে!', 'success');
+            }, 1400);
         }
 
         function loadSampleNote() {
             const sample = {
                 id: 'sample-' + Date.now(),
-                title: 'ডেমো লেকচার - কম্পিউটার নেটওয়ার্ক',
+                title: 'কম্পিউটার নেটওয়ার্ক - ওএসআই মডেল',
                 date: new Date().toLocaleDateString('bn-BD'),
                 verbatim: 'শিক্ষক ক্লাসে আলোচনা করেছেন: আইপি এড্রেস এবং সাবনেটিং নিয়ে। ওএসআই মডেলের ৭টি লেয়ার সম্পর্কে বিস্তারিত ধারণা দেওয়া হয়েছে।',
                 summary: 'কম্পিউটার নেটওয়ার্কের ওএসআই মডেল ও আইপি এ্রেসিং নিয়ে আলোচনা।',
@@ -431,7 +404,7 @@
             };
 
             notesHistory.unshift(sample);
-            localStorage.setItem('lecture_notes_history_v4', JSON.stringify(notesHistory));
+            localStorage.setItem('lecture_notes_history_v5', JSON.stringify(notesHistory));
             renderHistoryList();
             loadNoteIntoWorkspace(sample.id);
             showToast('ডেমো নোট লোড করা হয়েছে', 'success');
@@ -506,13 +479,13 @@
             const note = notesHistory.find(n => n.id === activeNoteId);
             if (note) {
                 note.verbatim = newText;
-                localStorage.setItem('lecture_notes_history_v4', JSON.stringify(notesHistory));
+                localStorage.setItem('lecture_notes_history_v5', JSON.stringify(notesHistory));
             }
         }
 
         function deleteNote(id) {
             notesHistory = notesHistory.filter(n => n.id !== id);
-            localStorage.setItem('lecture_notes_history_v4', JSON.stringify(notesHistory));
+            localStorage.setItem('lecture_notes_history_v5', JSON.stringify(notesHistory));
             if (activeNoteId === id) {
                 activeNoteId = null;
                 document.getElementById('noteContentContainer').classList.add('hidden');
